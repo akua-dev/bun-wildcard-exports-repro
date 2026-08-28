@@ -39,3 +39,10 @@ jobs:
           unzip -q -o /tmp/bun140.zip -d /tmp/bun140
           /tmp/bun140/bun-linux-x64/bun --version
           cd consumer && /tmp/bun140/bun-linux-x64/bun run script.ts
+
+      - name: 5) Same tree as step 1, but under a STRIPPED environment (env -, only TMPDIR set) - matches Bazel's process-wrapper invocation exactly
+        continue-on-error: true
+        run: |
+          BUN_PATH="$(which bun)"
+          cd consumer
+          env - TMPDIR=/tmp "$BUN_PATH" run script.ts

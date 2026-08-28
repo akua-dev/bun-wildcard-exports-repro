@@ -25,11 +25,12 @@ jobs:
         continue-on-error: true
         run: |
           rm -rf /tmp/real-install && mkdir -p /tmp/real-install
-          cp -R consumer-real-install/* /tmp/real-install/
-          cd /tmp/real-install
+          cp -R pkg-real /tmp/real-install/pkg-real
+          cp -R consumer-real-install /tmp/real-install/consumer-real-install
+          cd /tmp/real-install/consumer-real-install
           bun install
-          echo "--- node_modules/wildcard-pkg entry ---"
-          ls -la node_modules/wildcard-pkg
+          echo "--- node_modules/wildcard-pkg entry (full recursive listing) ---"
+          find node_modules/wildcard-pkg
           bun run script.ts
 
       - name: 4) bun 1.4.0 side by side (same tree as step 1)
